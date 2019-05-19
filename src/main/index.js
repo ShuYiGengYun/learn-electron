@@ -1,5 +1,5 @@
 import { app, BrowserWindow, Notification } from 'electron'
-const { MainNotification } = require('./Notification/index');
+const log = require('../common/log');
 
 
 /**
@@ -25,10 +25,6 @@ function createWindow () {
     width: 1000
   })
   mainWindow.loadURL(winURL)
-  const notification = new MainNotification({
-    title: 'HelloNotification',
-  })
-  notification.notificationShow();
   mainWindow.on('closed', () => {
     mainWindow = null
   })
