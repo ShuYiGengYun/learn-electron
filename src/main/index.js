@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 const log = require('../common/log');
-const notifier = require('node-notifier');
+const notifier = require('node-notifier'); //win7样式不一致;
+const Notification = require('electron-native-notification'); //主进程不能使用
 
 
 /**
@@ -29,7 +30,13 @@ function createWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
-  notifier.notify('Message');
+  // notifier.notify('Message'); win7样式和win10样式不一致
+  const opt = { body: 'See? Really easy to use!' };
+  const notification = new Notification('I am a notification!', opt);
+  log.info(notification)
+  notification.on('show', () => {
+    log.info('I\'m coming~');
+  });
 }
 
 app.on('ready', createWindow)
